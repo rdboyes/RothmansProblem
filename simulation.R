@@ -60,14 +60,14 @@ OneThousandTypeTwos <- rbind(cbind(0,
                              )
                           )
 
-#Observed samples of sample sizes 100 to 300
+#Observed samples of sample sizes 150 to 500
 #Will then look like:
 
 percentRight <- 0
 
-for(n in seq(100,500,10)){
+for(n in seq(150,500,10)){
   results <- FALSE
-  for(i in 1:250){
+  for(i in 1:500){
 
     sample <- as.data.frame(rbind(
       OneThousandTypeOnes[sample(nrow(OneThousandTypeOnes), (n * percentageTypeOne)),],
@@ -86,10 +86,12 @@ for(n in seq(100,500,10)){
   percentRight[(n/10)] <- mean(results)
 }
 
-plotData <- as.data.frame(cbind(seq(100,500,10),percentRight[10:50]))
+#Plot sample size vs. percent of 95% CIs containing
+
+plotData <- as.data.frame(cbind(seq(150,500,10),percentRight[15:50]))
 
 ggplot(plotData, aes(x = V1, y = V2)) + geom_point() +
   labs(x = "Sample Size", y = "Percentage of 95% CIs containing true value") +
   geom_smooth(method = lm)
   
-
+#Inconsistent results observed over multiple runs. Unclear
